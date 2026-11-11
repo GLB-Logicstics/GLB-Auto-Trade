@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#eef2f8"/>
+  <g transform="translate(110 105)" stroke="#9fb0c8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 60h140a10 10 0 0 0 10-10V38a10 10 0 0 0-7-9.5L140 21 122 3a10 10 0 0 0-7-3H60a10 10 0 0 0-8 4L38 21 16 27A10 10 0 0 0 10 37v13a10 10 0 0 0 10 10Z"/>
+    <circle cx="45" cy="62" r="14" fill="#eef2f8"/>
+    <circle cx="135" cy="62" r="14" fill="#eef2f8"/>
+  </g>
+  <text x="200" y="215" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="14" fill="#8c97a8">Şəkil yoxdur</text>
+</svg>

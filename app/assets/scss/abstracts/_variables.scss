@@ -1,0 +1,51 @@
+$primary: #00b8fb;
+$primary-dark: #0096cc;
+$accent: #00b8fb;
+$accent-dark: #0096cc;
+$accent-text: #0087b8;
+$accent-soft: #e6f7fe;
+$logo-blue: #00b8fb;
+
+$danger: #e57373;
+$danger-soft: #fdeeee;
+
+$ink: #16202c;
+$text: #3d4856;
+$text-soft: #5f6b78;
+$muted: #8d98a6;
+
+$white: #fff;
+$page-bg: #f5fafd;
+$surface: #eaf6fc;
+$line: #dfe8ee;
+$line-soft: #edf2f6;
+$dark: #16202c;
+
+$font-body: 'Poppins', 'Segoe UI', Arial, sans-serif;
+$font-heading: 'Montserrat', 'Poppins', 'Segoe UI', Arial, sans-serif;
+
+$radius-sm: 6px;
+$radius: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+
+$shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
+$shadow-card: 0 20px 50px rgba(15, 23, 42, 0.07);
+$shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.14);
+
+$container: 1344px;
+$container-narrow: 1180px;
+$header-top: 40px;
+$header-main: 72px;
+$header-mobile: 64px;
+$bottom-nav: 68px;
+
+$transition: 0.2s ease;
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);

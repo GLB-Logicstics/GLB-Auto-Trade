@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+:root {
+  --swiper-theme-color: #{$accent};
+  --swiper-pagination-bullet-inactive-color: #{$muted};
+  --swiper-pagination-bullet-inactive-opacity: 0.4;
+  --swiper-pagination-bullet-size: 8px;
+}
+
+.slider-arrow {
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  color: $ink;
+  background-color: $white;
+  border: 1px solid $line;
+  border-radius: 50%;
+  box-shadow: $shadow-sm;
+  transition: background-color $transition, color $transition;
+
+  &:hover {
+    color: $white;
+    background-color: $primary;
+  }
+
+  &.swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  &.swiper-button-lock {
+    display: none !important;
+  }
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  &.swiper-pagination-lock {
+    display: none;
+  }
+
+  .swiper-pagination-bullet-active {
+    width: 22px;
+    border-radius: 10px;
+  }
+}

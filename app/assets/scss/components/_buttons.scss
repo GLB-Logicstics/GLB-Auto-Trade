@@ -1,0 +1,66 @@
+@use '../abstracts' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: $radius;
+  transition: background-color $transition;
+
+  &--accent {
+    color: $white;
+    background-color: $accent;
+
+    &:hover {
+      background-color: $accent-dark;
+    }
+  }
+
+  &:disabled {
+    color: $muted;
+    background-color: $line;
+    cursor: not-allowed;
+  }
+}
+
+.fav-btn {
+  @include flex-center;
+  width: 34px;
+  height: 34px;
+  font-size: 15px;
+  color: $danger;
+  background-color: $white;
+  border: 1px solid $line;
+  border-radius: 50%;
+  box-shadow: $shadow-sm;
+  transition: border-color $transition, transform $transition;
+
+  &:hover,
+  &.is-active {
+    border-color: $danger;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $accent-text;
+  transition: gap $transition;
+
+  &:hover {
+    gap: 10px;
+  }
+}
