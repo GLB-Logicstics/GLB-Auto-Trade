@@ -40,7 +40,7 @@ export function formatDate(value: string): string {
   return `${day}.${month}.${year}, ${time}`
 }
 
-export const PLACEHOLDER_IMAGE = '/images/placeholder-car.svg'
+export const PLACEHOLDER_IMAGE = 'images/placeholder-car.svg'
 
 export function onImageError(event: Event) {
   const img = event.target as HTMLImageElement

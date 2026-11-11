@@ -23,14 +23,14 @@ export const heroSlides: HeroSlide[] = [
 ]
 
 export const brands: Brand[] = [
-  { name: 'BMW', logo: '/images/brands/bmw.png' },
-  { name: 'HYUNDAI', logo: '/images/brands/hyundai.png' },
-  { name: 'MERCEDES-BENZ', logo: '/images/brands/mercedes-benz.png' },
-  { name: 'VOLKSWAGEN', logo: '/images/brands/volkswagen.png' },
-  { name: 'FORD', logo: '/images/brands/ford.png' },
-  { name: 'CHEVROLET', logo: '/images/brands/chevrolet.png' },
-  { name: 'KIA', logo: '/images/brands/kia.png' },
-  { name: 'TOYOTA', logo: '/images/brands/toyota.png' },
+  { name: 'BMW', logo: 'images/brands/bmw.png' },
+  { name: 'HYUNDAI', logo: 'images/brands/hyundai.png' },
+  { name: 'MERCEDES-BENZ', logo: 'images/brands/mercedes-benz.png' },
+  { name: 'VOLKSWAGEN', logo: 'images/brands/volkswagen.png' },
+  { name: 'FORD', logo: 'images/brands/ford.png' },
+  { name: 'CHEVROLET', logo: 'images/brands/chevrolet.png' },
+  { name: 'KIA', logo: 'images/brands/kia.png' },
+  { name: 'TOYOTA', logo: 'images/brands/toyota.png' },
 ]
 
 export const localCars: LocalCar[] = [

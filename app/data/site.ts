@@ -2,8 +2,8 @@ import type { BottomNavItem, Language, NavItem, NavLink, Notification, SiteInfo,
 
 export const siteInfo: SiteInfo = {
   name: 'GLB Logistics',
-  logo: '/images/logo.png',
-  logoDark: '/images/logo-dark.png',
+  logo: 'images/logo.png',
+  logoDark: 'images/logo-dark.png',
   about:
     'GLB Logistics ABŞ hərraclarından avtomobillərin alışı, daşınması və gömrük rəsmiləşdirilməsini bir yerdən idarə edir. Sürətli, etibarlı və əlavə ödənişsiz xidmətlə avtomobilinizi açarı təhvil şəklində Azərbaycanda alın.',
   contact: {
@@ -64,7 +64,7 @@ export const footerLinks: NavLink[] = [
   { label: 'Auksion', to: '/auction-lots' },
   { label: 'Çatdırılma', to: '/shipping-calculator' },
   { label: 'Hibrid Avtomobillər', to: '/auction-lots?fuels=Hibrid' },
-  { label: 'Avtomobil İdxalı', to: '/search?country=az' },
+  { label: 'Avtomobil İdxalı', to: '/search?country=aze' },
 ]
 
 export const languages: Language[] = [

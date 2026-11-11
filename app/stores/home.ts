@@ -36,7 +36,7 @@ export const useHomeStore = defineStore('home', {
           title: 'Azərbaycandakı',
           highlight: 'Avtomobillər',
           subtitle: 'Sadəcə seç, sənə uyğun olanı götür və bu gün evinə apar',
-          moreLink: '/search?country=az',
+          moreLink: '/search?country=aze',
           items: localCars,
         },
       ]

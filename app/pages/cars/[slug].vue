@@ -159,7 +159,7 @@ export default defineComponent({
       const car = this.car!
       return [
         { label: 'Əsas səhifə', to: '/' },
-        { label: 'Azərbaycandakı avtomobillər', to: '/search?country=az' },
+        { label: 'Azərbaycandakı avtomobillər', to: '/search?country=aze' },
         { label: `${car.year} ${car.title}` },
       ]
     },
