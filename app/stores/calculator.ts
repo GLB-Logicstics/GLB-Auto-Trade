@@ -48,7 +48,7 @@ function engineCc(engine: string) {
 export const useCalculatorStore = defineStore('calculator', {
   state: () => ({
     bid: '',
-    country: 'aze',
+    country: 'az',
     result: emptyResult(),
   }),
 
@@ -62,17 +62,20 @@ export const useCalculatorStore = defineStore('calculator', {
 
       const fee = auctionFee(bid, lot.document === 'Standart sənəd')
       const usShipping = shippingPrices[lot.location] || 0
-      const potiShipping = this.country === 'aze' ? POTI_BAKU_PRICE : 0
+      const toAzerbaijan = this.country === 'az'
+      const potiShipping = toAzerbaijan ? POTI_BAKU_PRICE : 0
 
-      const customs = calculateCustoms({
-        price: bid + fee,
-        transport: usShipping + potiShipping,
-        engineCc: engineCc(lot.engine),
-        fuel: lot.fuel,
-        year: lot.year,
-      })
+      const customsAzn = toAzerbaijan
+          ? calculateCustoms({
+            price: bid + fee,
+            transport: usShipping + potiShipping,
+            engineCc: engineCc(lot.engine),
+            fuel: lot.fuel,
+            year: lot.year,
+          }).total
+          : 0
 
-      const customsUsd = Math.round((customs.total / AZN_RATE) * 100) / 100
+      const customsUsd = Math.round((customsAzn / AZN_RATE) * 100) / 100
 
       this.result = {
         bid,
@@ -80,7 +83,7 @@ export const useCalculatorStore = defineStore('calculator', {
         usShipping,
         potiShipping,
         customs: customsUsd,
-        customsAzn: customs.total,
+        customsAzn,
         total: bid + fee + usShipping + potiShipping + customsUsd,
         shippingUnknown: !usShipping,
       }
@@ -88,7 +91,7 @@ export const useCalculatorStore = defineStore('calculator', {
 
     reset() {
       this.bid = ''
-      this.country = 'aze'
+      this.country = 'az'
       this.result = emptyResult()
     },
   },

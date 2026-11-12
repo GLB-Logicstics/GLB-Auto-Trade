@@ -31,8 +31,8 @@
           <strong v-if="result.shippingUnknown">Əlaqə saxlayın</strong>
           <strong v-else>{{ formatMoney(result.usShipping) }}</strong>
         </p>
-        <p><span>Daşınma (Poti – Bakı)</span> <strong>{{ formatMoney(result.potiShipping) }}</strong></p>
-        <p>
+        <p v-if="isAzerbaijan"><span>Daşınma (Poti – Bakı)</span> <strong>{{ formatMoney(result.potiShipping) }}</strong></p>
+        <p v-if="isAzerbaijan">
           <span>Gömrük rüsumu</span>
           <strong>
             {{ formatMoney(result.customs) }}
@@ -77,6 +77,16 @@ export default defineComponent({
     ...mapWritableState(useCalculatorStore, ['bid', 'country']),
     ...mapState(useCalculatorStore, ['result']),
     ...mapState(useSiteStore, ['contact', 'phoneHref']),
+
+    isAzerbaijan(): boolean {
+      return this.country === 'az'
+    },
+  },
+
+  watch: {
+    country() {
+      if (this.result.bid) this.calculate(this.lot)
+    },
   },
 
   created() {
