@@ -95,7 +95,7 @@ export interface Lot {
   location: string
   auction: string
   addedAt: string
-  document: string
+  document: 'Standart sənəd' | 'Qeyri-standart sənəd' | 'Məlumat yoxdur'
   primaryDamage: string
   secondaryDamage: string
   hasKeys: boolean
