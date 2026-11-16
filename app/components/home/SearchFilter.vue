@@ -12,6 +12,12 @@
         <BaseSelect v-model="model" :options="modelOptions" :disabled="!make" placeholder="Model seçin" searchable />
         <BaseSelect v-model="place" :options="places" :clearable="false" placeholder="Yer" />
         <BaseSelect
+          v-model="auction"
+          :options="auctions"
+          :disabled="place !== 'auction'"
+          placeholder="Bütün auksionlar"
+        />
+        <BaseSelect
           :model-value="yearFrom"
           :options="years"
           :disabled="!make"
@@ -37,8 +43,17 @@ export default defineComponent({
   name: 'SearchFilter',
 
   computed: {
-    ...mapState(useSearchStore, ['makeOptions', 'modelOptions', 'places', 'years', 'yearToOptions', 'filterQuery', 'filterPath']),
-    ...mapWritableState(useSearchStore, ['make', 'model', 'place', 'yearFrom', 'yearTo']),
+    ...mapState(useSearchStore, [
+      'makeOptions',
+      'modelOptions',
+      'places',
+      'auctions',
+      'years',
+      'yearToOptions',
+      'filterQuery',
+      'filterPath',
+    ]),
+    ...mapWritableState(useSearchStore, ['make', 'model', 'place', 'auction', 'yearFrom', 'yearTo']),
   },
 
   methods: {
@@ -80,7 +95,7 @@ export default defineComponent({
     }
 
     @include up(lg) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       max-width: $container-narrow;
       margin: 0 auto;
     }

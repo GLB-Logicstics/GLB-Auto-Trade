@@ -94,12 +94,13 @@ export default defineComponent({
   setup() {
     useSeoMeta({
       title: 'Hərrac lotları — GLB Logistics',
-      description: 'Copart və IAAI hərraclarından BMW və Hyundai avtomobilləri. Filtr, sıralama və tam qiymət hesablaması.',
+      description: 'Copart, IAAI və Manheim hərraclarından avtomobillər. Auksion, növ, tarix və digər filtrlər, tam qiymət hesablaması.',
     })
   },
 
   data() {
     const chips: { key: FlagKey; label: string }[] = [
+      { key: 'upcoming', label: 'Yaxın 10 gün' },
       { key: 'buyNow', label: 'İndi al' },
       { key: 'runs', label: 'İşləyir və sürülür' },
       { key: 'cleanTitle', label: 'Təmiz sənəd' },
@@ -202,7 +203,7 @@ export default defineComponent({
   &__backdrop {
     position: fixed;
     inset: 0;
-    z-index: 140;
+    z-index: 95;
     background-color: rgba(10, 20, 40, 0.45);
 
     @include up(lg) {
@@ -212,10 +213,10 @@ export default defineComponent({
 
   &__sidebar {
     position: fixed;
-    top: 0;
-    bottom: 0;
+    top: $header-mobile;
+    bottom: $bottom-nav;
     left: 0;
-    z-index: 150;
+    z-index: 96;
     width: 320px;
     max-width: 88vw;
     padding: 20px;
@@ -226,6 +227,11 @@ export default defineComponent({
 
     &.is-open {
       transform: translateX(0);
+    }
+
+    @include up(md) {
+      top: $header-top + $header-mobile;
+      bottom: 0;
     }
 
     @include up(lg) {

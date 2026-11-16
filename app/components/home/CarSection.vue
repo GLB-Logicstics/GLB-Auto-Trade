@@ -7,6 +7,7 @@
         <UiSwiper :items="section.items" :options="options" variant="cards" navigation pagination>
           <template #default="{ item }">
             <AuctionCarCard v-if="section.type === 'auction'" :car="item" />
+            <KoreaCarCard v-else-if="section.type === 'korea'" :car="item" />
             <LocalCarCard v-else :car="item" />
           </template>
         </UiSwiper>

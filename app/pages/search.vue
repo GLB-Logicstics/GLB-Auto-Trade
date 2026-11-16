@@ -30,17 +30,17 @@
           <div class="search-page__sort">
             <span>Sırala:</span>
             <BaseSelect
-              :model-value="sort"
-              :options="sortOptions"
-              :clearable="false"
-              class="search-page__sort-select"
-              @update:model-value="setSort"
+                :model-value="sort"
+                :options="sortOptions"
+                :clearable="false"
+                class="search-page__sort-select"
+                @update:model-value="setSort"
             />
             <button
-              type="button"
-              class="search-page__order"
-              :aria-label="order === 'asc' ? 'Artan' : 'Azalan'"
-              @click="toggleOrder"
+                type="button"
+                class="search-page__order"
+                :aria-label="order === 'asc' ? 'Artan' : 'Azalan'"
+                @click="toggleOrder"
             >
               <i :class="['bi', order === 'asc' ? 'bi-sort-down-alt' : 'bi-sort-down']" />
             </button>
@@ -75,7 +75,7 @@ export default defineComponent({
   setup() {
     useSeoMeta({
       title: 'Satışda olan avtomobillər — GLB Logistics',
-      description: 'Azərbaycanda və Çində satışda olan hazır avtomobillər. Marka, il, yürüş və qiymətə görə filtr.',
+      description: 'Azərbaycanda və Gürcüstanda satışda olan hazır avtomobillər. Ölkə, şəhər, marka, il və qiymətə görə filtr.',
     })
   },
 
@@ -155,7 +155,7 @@ export default defineComponent({
   &__backdrop {
     position: fixed;
     inset: 0;
-    z-index: 140;
+    z-index: 95;
     background-color: rgba(10, 20, 40, 0.45);
 
     @include up(lg) {
@@ -165,10 +165,10 @@ export default defineComponent({
 
   &__sidebar {
     position: fixed;
-    top: 0;
-    bottom: 0;
+    top: $header-mobile;
+    bottom: $bottom-nav;
     left: 0;
-    z-index: 150;
+    z-index: 96;
     width: 320px;
     max-width: 88vw;
     padding: 20px;
@@ -179,6 +179,11 @@ export default defineComponent({
 
     &.is-open {
       transform: translateX(0);
+    }
+
+    @include up(md) {
+      top: $header-top + $header-mobile;
+      bottom: 0;
     }
 
     @include up(lg) {

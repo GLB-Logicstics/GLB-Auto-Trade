@@ -33,6 +33,11 @@
               <s v-if="car.oldPrice" class="car-page__old-price">{{ formatUsd(car.oldPrice) }}</s>
               <p class="car-page__price">{{ formatUsd(car.price) }}</p>
               <p class="car-page__azn">≈ {{ formatAzn(car.price * aznRate) }}</p>
+              <p class="car-page__market">
+                Yerli bazar qiyməti: <b>{{ formatUsd(car.marketPrice) }}</b>
+                <span v-if="car.marketPrice > car.price">+{{ formatUsd(car.marketPrice - car.price) }} ucuz</span>
+              </p>
+              <p class="car-page__dealer"><i class="bi bi-shop" /> {{ car.dealer.name }}</p>
 
               <span class="car-page__status" :class="{ 'is-sold': car.sold }">
                 <i :class="['bi', car.sold ? 'bi-x-circle' : 'bi-check-circle']" />
@@ -294,6 +299,27 @@ export default defineComponent({
   &__azn {
     font-size: 0.875rem;
     color: $text-soft;
+  }
+
+  &__market {
+    font-size: 0.875rem;
+    color: $text-soft;
+
+    b {
+      color: $ink;
+    }
+
+    span {
+      margin-left: 6px;
+      font-weight: 600;
+      color: #1f9d55;
+    }
+  }
+
+  &__dealer {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $accent-text;
   }
 
   &__status {

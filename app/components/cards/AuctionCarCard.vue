@@ -32,6 +32,10 @@
 
       <ul class="auction-card__specs">
         <li>
+          <span><i class="bi bi-bank" /> Auksion:</span>
+          <strong>{{ car.auction }}</strong>
+        </li>
+        <li>
           <span><i class="bi bi-speedometer2" /> Yürüş:</span>
           <strong>{{ formatMiles(car.odometer, car.odometerType) }}</strong>
         </li>

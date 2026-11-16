@@ -20,7 +20,11 @@
             Seçilmişlər
           </NuxtLink>
           <span class="header__divider" />
-          <NuxtLink to="/login" class="header__top-link">
+          <NuxtLink v-if="loggedIn" to="/profile" class="header__top-link">
+            <i class="bi bi-person-circle" />
+            {{ firstName }}
+          </NuxtLink>
+          <NuxtLink v-else to="/login" class="header__top-link">
             <i class="bi bi-person-badge" />
             Daxil ol
           </NuxtLink>
@@ -42,7 +46,7 @@
     <div class="header__main">
       <div class="container header__main-inner">
         <NuxtLink to="/" class="header__logo">
-          <img :src="info.logo" :alt="info.name" width="361" height="160">
+          <img :src="$asset(info.logo)" :alt="info.name" width="361" height="160">
         </NuxtLink>
 
         <nav class="header__nav">
@@ -94,6 +98,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'pinia'
+import { useAuthStore } from '~/stores/auth'
 import { useSiteStore } from '~/stores/site'
 import { useUiStore } from '~/stores/ui'
 
@@ -103,6 +108,7 @@ export default defineComponent({
   computed: {
     ...mapState(useSiteStore, ['info', 'contact', 'mainNav', 'socialLinks', 'phoneHref', 'emailHref']),
     ...mapState(useUiStore, ['mobileMenuOpen']),
+    ...mapState(useAuthStore, ['loggedIn', 'firstName']),
   },
 
   watch: {

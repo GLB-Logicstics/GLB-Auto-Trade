@@ -5,7 +5,7 @@
         <template #default="{ item }">
           <NuxtLink :to="`/auction-lots?makes=${item.name}`" class="brands__item">
             <span class="brands__logo">
-              <img :src="item.logo" :alt="item.name" width="80" height="80" loading="lazy">
+              <img :src="$asset(item.logo)" :alt="item.name" width="80" height="80" loading="lazy">
             </span>
             <span class="brands__name">{{ item.name }}</span>
           </NuxtLink>

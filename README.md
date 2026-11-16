@@ -10,41 +10,51 @@ npm run dev
 | Səhifə | Ünvan |
 |---|---|
 | Ana səhifə | `/` |
-| Hərrac lotları (filtr, sıralama, səhifələmə) | `/auction-lots` |
-| Lotun daxili səhifəsi (qalereya, kalkulyator) | `/auction-lots/:slug` |
-| Satışda olan avtomobillər (Azərbaycan / Çin) | `/search?country=az` |
-| Azərbaycandakı avtomobil | `/cars/:slug` |
+| Hərrac lotları (Copart / IAAI / Manheim, auksion növü, yaxın 10 gün) | `/auction-lots` |
+| Lotun daxili səhifəsi (qalereya, kalkulyator, qiymət qrafiki) | `/auction-lots/:slug` |
+| Satışda olan avtomobillər (ölkə, şəhər, bazar fərqi) | `/search?country=aze` |
+| Satışda olan avtomobil | `/cars/:slug` |
+| Koreyadan avtomobillər | `/korea-cars` |
+| Ehtiyat hissələri | `/parts` |
+| Avtomobil kataloqu | `/catalog` |
+| Hərrac / gömrük / daşınma kalkulyatoru | `/auction-calculator`, `/customs-calculator`, `/shipping-calculator` |
+| Xidmətlər | `/services`, `/services/:slug` |
+| Avtomobil izləmə | `/tracking` |
+| Xəbərlər | `/information`, `/information/:id` |
+| Diler ol (B2B müraciət) | `/dealers` |
+| Haqqımızda, Əlaqə, Risklər, Şərtlər, Məxfilik | `/about`, `/contact`, `/risks`, `/terms`, `/privacy` |
+| Daxil ol, Qeydiyyat, Profil | `/login`, `/register`, `/profile` |
 | Seçilmişlər (giriş tələb edir) | `/favourite` |
 
-Qalan bütün linklər "Bu səhifə hazırlanır" səhifəsinə gedir.
+Qalan linklər (məs. `/auction-history`) "Bu səhifə hazırlanır" səhifəsinə gedir.
 
-## Nümunə data
+## Data
 
-- 2 marka: **BMW** (X5, X3, 330I) və **HYUNDAI** (TUCSON, SANTA FE, ELANTRA, IONIQ)
-- 21 lot — `app/data/lots.ts`
-- Filtr seçimləri — `app/data/filters.ts`
+Bütün data statikdir — `app/data/*`. Backend yoxdur: giriş, müraciətlər və seçilmişlər brauzerdə saxlanılır.
 
 ## Store-lar
 
 | Store | Nə edir |
 |---|---|
-| `lots` | filtrlər, sıralama, səhifələmə, URL ilə sinxron |
+| `lots` | hərrac filtrləri, sıralama, səhifələmə, URL ilə sinxron |
+| `cars` | satışda olan avtomobillər (ölkə, şəhər) |
+| `korea`, `parts`, `catalog` | Koreya, ehtiyat hissələri, kataloq |
+| `calculator` | lot səhifəsindəki kalkulyator |
 | `search` | ana səhifə filtri və header axtarışı |
-| `calculator` | lot səhifəsindəki qiymət hesablaması |
-| `cars` | Azərbaycandakı avtomobillər |
-| `favourites` | seçilmişlər (cookie-də saxlanılır) |
-| `home`, `site`, `ui` | ana səhifə, header/footer, menyu |
+| `auth`, `favourites`, `requests` | giriş, seçilmişlər, müraciətlər |
+| `home`, `site`, `content`, `ui` | ana səhifə, menyu, xidmətlər və info səhifələri |
+
+## Kalkulyator
+
+- Hərrac rüsumu, ABŞ–Poti və Poti–Bakı qiymətləri, əlavə xərclər — `app/data/calculator.ts`
+- Azərbaycan gömrüyü — `app/utils/customs.ts` (AZN, 1 USD = 1.7)
+- Gürcüstan gömrüyü — `app/utils/customsGe.ts` (GEL, 1 USD = 2.7, 2026 aksiz dərəcələri)
+- Ümumi hesablama — `app/utils/estimate.ts`
+
+## Şəkillər
+
+`public` qovluğundakı şəkillər `$asset('images/...')` ilə verilir — GitHub Pages-də `/GLB-Auto-Trade/` bazası ilə düzgün işləyir.
 
 ## Texnologiyalar
 
 Nuxt 4 (Options API), Pinia, SCSS, Swiper 11
-
-## Kalkulyator
-
-- Hərrac rüsumu, ABŞ–Poti daşınması və Poti–Bakı qiyməti — `app/data/calculator.ts`
-- Gömrük ödənişləri (rüsum, aksiz, ƏDV, yığımlar, utilizasiya) — `app/utils/customs.ts`
-- Gömrük manatla hesablanır, nəticə 1.7 məzənnə ilə dollara çevrilir
-
-## Rənglər
-
-`app/assets/scss/abstracts/_variables.scss` — əsas rəng `#00B8FB`, yumşaq qırmızı `#E57373`

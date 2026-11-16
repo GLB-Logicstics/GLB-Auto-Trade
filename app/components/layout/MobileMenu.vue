@@ -25,6 +25,10 @@
         </ul>
 
         <div class="mobile-menu__footer">
+          <NuxtLink :to="loggedIn ? '/profile' : '/login'" class="mobile-menu__contact">
+            <i class="bi bi-person" />
+            {{ loggedIn ? 'Profilim' : 'Daxil ol' }}
+          </NuxtLink>
           <NuxtLink to="/favourite" class="mobile-menu__contact">
             <i class="bi bi-heart" />
             Seçilmişlər
@@ -57,6 +61,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'pinia'
+import { useAuthStore } from '~/stores/auth'
 import { useSiteStore } from '~/stores/site'
 import { useUiStore } from '~/stores/ui'
 
@@ -70,6 +75,7 @@ export default defineComponent({
   computed: {
     ...mapState(useUiStore, ['mobileMenuOpen']),
     ...mapState(useSiteStore, ['mainNav', 'socialLinks', 'contact', 'phoneHref', 'emailHref']),
+    ...mapState(useAuthStore, ['loggedIn']),
   },
 
   watch: {

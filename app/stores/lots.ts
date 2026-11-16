@@ -4,6 +4,8 @@ import type { Lot, LotFilters, Option } from '~/types'
 
 export const LIST_KEYS = [
   'added',
+  'auctions',
+  'auctionTypes',
   'locations',
   'makes',
   'models',
@@ -20,9 +22,19 @@ export const LIST_KEYS = [
   'documents',
 ] as const
 
-export const TEXT_KEYS = ['q', 'saleFrom', 'saleTo', 'yearFrom', 'yearTo', 'mileageFrom', 'mileageTo'] as const
+export const TEXT_KEYS = [
+  'q',
+  'saleFrom',
+  'saleTo',
+  'yearFrom',
+  'yearTo',
+  'mileageFrom',
+  'mileageTo',
+  'priceFrom',
+  'priceTo',
+] as const
 
-export const FLAG_KEYS = ['buyNow', 'runs', 'cleanTitle', 'today', 'tomorrow'] as const
+export const FLAG_KEYS = ['buyNow', 'runs', 'cleanTitle', 'today', 'tomorrow', 'upcoming'] as const
 
 export type ListKey = (typeof LIST_KEYS)[number]
 export type TextKey = (typeof TEXT_KEYS)[number]
@@ -32,6 +44,8 @@ function emptyFilters(): LotFilters {
   return {
     q: '',
     added: [],
+    auctions: [],
+    auctionTypes: [],
     locations: [],
     makes: [],
     models: [],
@@ -52,21 +66,20 @@ function emptyFilters(): LotFilters {
     yearTo: '',
     mileageFrom: '',
     mileageTo: '',
+    priceFrom: '',
+    priceTo: '',
     buyNow: false,
     runs: false,
     cleanTitle: false,
     today: false,
     tomorrow: false,
+    upcoming: false,
   }
 }
 
-function documentGroup(lot: Lot) {
-  if (lot.document === 'Standart sənəd') return 'Standart sənəd'
-  if (lot.document === 'Məlumat yoxdur') return 'Məlumat yoxdur'
-  return 'Qeyri-standart sənəd'
-}
-
 export function lotValue(lot: Lot, key: ListKey): string {
+  if (key === 'auctions') return lot.auction
+  if (key === 'auctionTypes') return lot.auctionType
   if (key === 'locations') return lot.location
   if (key === 'makes') return lot.make
   if (key === 'models') return lot.model
@@ -80,7 +93,7 @@ export function lotValue(lot: Lot, key: ListKey): string {
   if (key === 'bodies') return lot.bodyType
   if (key === 'vehicleTypes') return 'Avtomobil'
   if (key === 'drives') return lot.drive
-  if (key === 'documents') return documentGroup(lot)
+  if (key === 'documents') return lot.document
   return ''
 }
 
@@ -88,6 +101,17 @@ function dateText(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
   return `${date.getFullYear()}-${month}-${day}`
+}
+
+function addDays(days: number) {
+  const date = new Date()
+  date.setDate(date.getDate() + days)
+  return dateText(date)
+}
+
+export function isUpcoming(lot: Lot) {
+  const saleDay = lot.saleDate.slice(0, 10)
+  return saleDay >= dateText(new Date()) && saleDay <= addDays(10)
 }
 
 function daysAgo(dateString: string) {
@@ -115,9 +139,7 @@ export const useLotsStore = defineStore('lots', {
       const f = state.filters
       const text = f.q.trim().toLowerCase()
       const today = dateText(new Date())
-      const tomorrowDate = new Date()
-      tomorrowDate.setDate(tomorrowDate.getDate() + 1)
-      const tomorrow = dateText(tomorrowDate)
+      const tomorrow = addDays(1)
       const addedDays = f.added.length ? Math.max(...f.added.map(Number)) : 0
 
       return state.items.filter((lot) => {
@@ -142,11 +164,14 @@ export const useLotsStore = defineStore('lots', {
         if (f.yearTo && lot.year > Number(f.yearTo)) return false
         if (f.mileageFrom && lot.odometer < Number(f.mileageFrom)) return false
         if (f.mileageTo && lot.odometer > Number(f.mileageTo)) return false
+        if (f.priceFrom && lotPrice(lot) < Number(f.priceFrom)) return false
+        if (f.priceTo && lotPrice(lot) > Number(f.priceTo)) return false
         if (f.buyNow && !lot.buyNowPrice) return false
         if (f.runs && lot.condition !== 'İşləyir və sürülür') return false
-        if (f.cleanTitle && documentGroup(lot) !== 'Standart sənəd') return false
+        if (f.cleanTitle && lot.document !== 'Standart sənəd') return false
         if (f.today && saleDay !== today) return false
         if (f.tomorrow && saleDay !== tomorrow) return false
+        if (f.upcoming && !isUpcoming(lot)) return false
         return true
       })
     },
@@ -211,6 +236,11 @@ export const useLotsStore = defineStore('lots', {
       return `${Math.min(...values).toLocaleString('en-US')} - ${Math.max(...values).toLocaleString('en-US')}`
     },
 
+    priceRange(state): string {
+      const values = state.items.map(lotPrice)
+      return `${Math.min(...values).toLocaleString('en-US')} - ${Math.max(...values).toLocaleString('en-US')}`
+    },
+
     activeCount(state): number {
       const f = state.filters
       let count = 0
@@ -231,6 +261,8 @@ export const useLotsStore = defineStore('lots', {
       if (state.page > 1) result.page = String(state.page)
       return result
     },
+
+    upcomingLots: (state) => state.items.filter(isUpcoming),
 
     lotBySlug: (state) => (slug: string) => state.items.find((lot) => lot.slug === slug),
 

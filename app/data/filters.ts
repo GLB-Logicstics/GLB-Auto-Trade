@@ -6,22 +6,52 @@ export const makes: Make[] = [
 ]
 
 export const saleStatuses: Record<string, SaleStatus> = {
-  minBid: { label: 'Minimum təklif əsasında', color: '#16202c', icon: 'bi-hammer' },
-  pure: { label: 'Şərtsiz satış', color: '#0096cc', icon: 'bi-check-circle-fill' },
-  approval: { label: 'Satıcı təsdiqi ilə', color: '#e57373', icon: 'bi-hourglass-split' },
+  minBid: { label: 'Minimum təklif əsasında', reserve: 'Rezerv var (məbləğ açıqlanmır)', color: '#16202c', icon: 'bi-hammer' },
+  pure: { label: 'Şərtsiz satış', reserve: 'Rezervsiz', color: '#0096cc', icon: 'bi-check-circle-fill' },
+  approval: { label: 'Satıcı təsdiqi ilə', reserve: 'Satıcının təsdiqi ilə', color: '#e57373', icon: 'bi-hourglass-split' },
+}
+
+export const auctions: Option[] = [
+  { label: 'Copart', value: 'Copart' },
+  { label: 'IAAI', value: 'IAAI' },
+  { label: 'Manheim', value: 'Manheim' },
+]
+
+export const auctionTypes: Option[] = [
+  { label: 'Canlı hərrac', value: 'live' },
+  { label: 'Vaxtlı hərrac (Timed)', value: 'timed' },
+  { label: 'İndi al (Buy Now)', value: 'buyNow' },
+]
+
+export function optionLabel(options: Option[], value: string): string {
+  const option = options.find((item) => item.value === value)
+  return option ? option.label : value
 }
 
 export const places: Option[] = [
-  { label: 'Hərrac', value: 'auction' },
-  { label: 'Azərbaycan', value: 'az' },
-  { label: 'Çin', value: 'cn' },
+  { label: 'Hərrac (ABŞ)', value: 'auction' },
+  { label: 'Azərbaycan', value: 'aze' },
+  { label: 'Gürcüstan', value: 'geo' },
+  { label: 'Koreya', value: 'korea' },
 ]
 
 export const countries: Option[] = [
   { label: 'Azərbaycan', value: 'aze' },
-  { label: 'Çin', value: 'china' },
-  { label: 'ABŞ', value: 'usa' },
+  { label: 'Gürcüstan', value: 'geo' },
 ]
+
+export const cities: Record<string, Option[]> = {
+  aze: [
+    { label: 'Bakı', value: 'Bakı' },
+    { label: 'Gəncə', value: 'Gəncə' },
+    { label: 'Sumqayıt', value: 'Sumqayıt' },
+  ],
+  geo: [
+    { label: 'Tbilisi', value: 'Tbilisi' },
+    { label: 'Batumi', value: 'Batumi' },
+    { label: 'Poti', value: 'Poti' },
+  ],
+}
 
 export const addedOptions: Option[] = [
   { label: 'Son 24 saat', value: '1' },

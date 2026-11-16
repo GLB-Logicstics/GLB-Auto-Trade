@@ -10,8 +10,8 @@
         <h3 class="car-row__title">
           <NuxtLink :to="link">{{ car.year }} {{ car.title }}</NuxtLink>
         </h3>
-        <p><span>Gücü:</span> {{ car.power }} a.g.</p>
-        <p><span>Mühərrik:</span> {{ car.engine }}</p>
+        <p><span>Mühərrik:</span> {{ car.engine }} / {{ car.power }} a.g.</p>
+        <p class="car-row__dealer"><i class="bi bi-shop" /> {{ car.dealer.name }}</p>
       </div>
 
       <div class="car-row__col">
@@ -21,9 +21,13 @@
 
       <div class="car-row__price">
         <p><span>Qiymət:</span> <strong>{{ formatUsd(car.price) }}</strong></p>
+        <p v-if="diff > 0" class="car-row__diff">+{{ formatUsd(diff) }} bazar qiymətindən ucuz</p>
         <p><span>Yeri:</span> {{ car.location }}</p>
         <div class="car-row__actions">
           <NuxtLink :to="link" class="btn btn--accent car-row__button">Ətraflı</NuxtLink>
+          <a :href="whatsapp" class="car-row__wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp" />
+          </a>
           <FavouriteButton :id="`car-${car.id}`" />
         </div>
       </div>
@@ -35,6 +39,7 @@
       <div><dt>Sürət qutusu</dt><dd>{{ car.transmission }}</dd></div>
       <div><dt>Ötürücü</dt><dd>{{ car.drive }}</dd></div>
       <div><dt>VIN</dt><dd>{{ car.vin }}</dd></div>
+      <div><dt>Bazar qiyməti</dt><dd>{{ formatUsd(car.marketPrice) }}</dd></div>
     </dl>
 
     <button type="button" class="car-row__toggle" @click="expanded = !expanded">
@@ -45,7 +50,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import { formatUsd, onImageError } from '~/utils/format'
+import { formatUsd, onImageError, whatsappLink } from '~/utils/format'
 import type { LocalCar } from '~/types'
 
 export default defineComponent({
@@ -63,6 +68,14 @@ export default defineComponent({
     link(): string {
       return `/cars/${this.car.slug}`
     },
+
+    diff(): number {
+      return this.car.marketPrice - this.car.price
+    },
+
+    whatsapp(): string {
+      return whatsappLink(this.car.dealer.phone, `Salam! ${this.car.year} ${this.car.title} ilə maraqlanıram.`)
+    },
   },
 
   methods: {
@@ -74,6 +87,28 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .car-row {
+  &__dealer {
+    font-size: 0.8125rem;
+    color: $accent-text;
+  }
+
+  &__diff {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #1f9d55;
+  }
+
+  &__wa {
+    @include flex-center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    color: $white;
+    background-color: #25d366;
+    border-radius: 50%;
+  }
+
   overflow: hidden;
   background-color: $white;
   border: 1px solid $line;
@@ -236,7 +271,7 @@ export default defineComponent({
     border-top: 1px solid $line-soft;
 
     @include up(md) {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
     }
 
     dt {

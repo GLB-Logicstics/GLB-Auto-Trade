@@ -54,7 +54,10 @@
             Satış məlumatı
           </h2>
           <dl class="lot-page__list">
+            <div><dt>Auksion:</dt><dd>{{ lot.auction }}</dd></div>
+            <div><dt>Auksion növü:</dt><dd>{{ auctionTypeLabel }}</dd></div>
             <div><dt>Hazırkı təklif:</dt><dd>{{ formatUsd(lot.currentBid) }}</dd></div>
+            <div><dt>Minimal rezerv:</dt><dd>{{ status.reserve }}</dd></div>
             <div>
               <dt class="lot-page__green">İndi al:</dt>
               <dd class="lot-page__green">{{ lot.buyNowPrice ? formatUsd(lot.buyNowPrice) : '—' }}</dd>
@@ -68,6 +71,16 @@
         </div>
       </div>
 
+      <div v-if="lot.video" class="card lot-page__video">
+        <h2 class="lot-page__box-title">
+          <i class="bi bi-play-circle" />
+          Video
+        </h2>
+        <video :src="lot.video" controls preload="none" />
+      </div>
+
+      <PriceHistory :lot="lot" class="lot-page__history" />
+
       <div class="card lot-page__about">
         <h2 class="lot-page__box-title">
           <i class="bi bi-info-circle" />
@@ -79,8 +92,8 @@
             çıxarılacaq. Avtomobil hazırda {{ lot.location }} ərazisindədir.
           </p>
           <p>
-            Kalkulyatorda təklif etmək istədiyiniz məbləği yazın — hərrac rüsumu, Amerikadan Azərbaycana daşınma və
-            gömrük xərcləri ilə birlikdə yekun qiyməti dərhal görəcəksiniz.
+            Kalkulyatorda təklif etmək istədiyiniz məbləği yazın və çatdırılma ölkəsini seçin — hərrac rüsumu, daşınma
+            və gömrük xərcləri ilə birlikdə yekun qiyməti dərhal görəcəksiniz.
           </p>
           <p>
             Hərracda iştirak etmək üçün bizimlə əlaqə saxlayın. Mütəxəssislərimiz bütün mərhələlər üzrə sizə kömək
@@ -97,7 +110,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'pinia'
-import { saleStatuses } from '~/data/filters'
+import { auctionTypes, optionLabel, saleStatuses } from '~/data/filters'
 import { useFavouritesStore } from '~/stores/favourites'
 import { useLotsStore } from '~/stores/lots'
 import { formatDate, formatMiles, formatUsd } from '~/utils/format'
@@ -137,6 +150,10 @@ export default defineComponent({
 
     status(): SaleStatus {
       return saleStatuses[this.lot!.status] || saleStatuses.minBid!
+    },
+
+    auctionTypeLabel(): string {
+      return optionLabel(auctionTypes, this.lot!.auctionType)
     },
 
     favouriteId(): string {
@@ -206,6 +223,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.lot-page__history,
+.lot-page__video {
+  margin-bottom: 20px;
+}
+
+.lot-page__video video {
+  display: block;
+  width: 100%;
+  max-height: 480px;
+  background-color: $dark;
+  border-radius: 0 0 $radius-md $radius-md;
+}
+
 .lot-page {
   &__head {
     display: flex;

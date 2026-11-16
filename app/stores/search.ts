@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { makes, places, years } from '~/data/filters'
+import { auctions, makes, places, years } from '~/data/filters'
 import { localCars } from '~/data/homepage'
 import { lots } from '~/data/lots'
 import type { Option, Suggestion } from '~/types'
@@ -9,6 +9,8 @@ export const useSearchStore = defineStore('search', {
     make: '',
     model: '',
     place: 'auction',
+    auction: '',
+    auctions,
     yearFrom: '',
     yearTo: '',
     places,
@@ -37,7 +39,8 @@ export const useSearchStore = defineStore('search', {
 
     filterQuery(state) {
       const query: Record<string, string> = {}
-      if (state.place !== 'auction') query.country = state.place
+      if (state.place !== 'auction' && state.place !== 'korea') query.country = state.place
+      if (state.place === 'auction' && state.auction) query.auctions = state.auction
       if (state.make) query.makes = state.make
       if (state.model) query.models = state.model
       if (state.yearFrom) query.yearFrom = state.yearFrom
@@ -46,7 +49,9 @@ export const useSearchStore = defineStore('search', {
     },
 
     filterPath(state): string {
-      return state.place === 'auction' ? '/auction-lots' : '/search'
+      if (state.place === 'auction') return '/auction-lots'
+      if (state.place === 'korea') return '/korea-cars'
+      return '/search'
     },
 
     suggestions(state): Suggestion[] {
@@ -81,7 +86,7 @@ export const useSearchStore = defineStore('search', {
       if (state.inOther) {
         for (const car of localCars) {
           if (car.title.toLowerCase().includes(text)) {
-            result.push({ title: car.title, subtitle: 'Azərbaycanda satışda', to: `/cars/${car.slug}` })
+            result.push({ title: car.title, subtitle: `${car.city} — satışda`, to: `/cars/${car.slug}` })
           }
         }
       }

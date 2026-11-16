@@ -17,7 +17,7 @@
 
         <ul class="notifications__list">
           <li v-for="item in notifications" :key="item.id">
-            <NuxtLink :to="`/information-view/${item.id}`" class="notifications__item" @click="close">
+            <NuxtLink :to="`/information/${item.id}`" class="notifications__item" @click="close">
               <span class="notifications__icon">
                 <i class="bi bi-newspaper" />
               </span>

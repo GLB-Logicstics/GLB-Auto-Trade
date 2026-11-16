@@ -3,7 +3,7 @@
     <div class="container app-footer__grid">
       <div class="app-footer__col app-footer__col--about">
         <NuxtLink to="/" class="app-footer__logo" :aria-label="info.name">
-          <img :src="info.logoDark" :alt="info.name" width="361" height="160" loading="lazy">
+          <img :src="$asset(info.logoDark)" :alt="info.name" width="361" height="160" loading="lazy">
         </NuxtLink>
         <p class="app-footer__about">{{ info.about }}</p>
         <div class="app-footer__socials">
@@ -13,7 +13,7 @@
             :href="social.href"
             :aria-label="social.label"
             class="app-footer__social"
-                      >
+          >
             <i :class="['bi', social.icon]" />
           </a>
         </div>
@@ -23,6 +23,15 @@
         <h3 class="app-footer__title">Faydalı Linklər</h3>
         <ul class="app-footer__links">
           <li v-for="link in footerLinks" :key="link.to">
+            <NuxtLink :to="link.to" class="app-footer__link">{{ link.label }}</NuxtLink>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="app-footer__col">
+        <h3 class="app-footer__title">Məlumat</h3>
+        <ul class="app-footer__links">
+          <li v-for="link in infoLinks" :key="link.to">
             <NuxtLink :to="link.to" class="app-footer__link">{{ link.label }}</NuxtLink>
           </li>
         </ul>
@@ -98,6 +107,7 @@ export default defineComponent({
       'info',
       'contact',
       'footerLinks',
+      'infoLinks',
       'socialLinks',
       'phoneHref',
       'emailHref',
@@ -127,7 +137,7 @@ export default defineComponent({
     }
 
     @include up(lg) {
-      grid-template-columns: 1.2fr 1fr 1.2fr;
+      grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
       gap: 48px;
       padding-block: 56px 40px;
     }

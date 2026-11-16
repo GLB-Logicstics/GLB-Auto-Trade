@@ -1,3 +1,5 @@
+const baseURL = process.env.NUXT_APP_BASE_URL || '/'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -28,13 +30,13 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Copart və IAAI hərraclarından avtomobil sifarişi, ABŞ-dan Azərbaycana daşınma və gömrük xərclərinin hesablanması — GLB Logistics.',
+            'Copart, IAAI və Manheim hərraclarından avtomobil sifarişi, Azərbaycana və Gürcüstana daşınma, gömrük xərclərinin hesablanması — GLB Logistics.',
         },
         { name: 'theme-color', content: '#00b8fb' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: 'favicon.png' },
-        { rel: 'apple-touch-icon', href: 'apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/png', href: `${baseURL}favicon.png` },
+        { rel: 'apple-touch-icon', href: `${baseURL}apple-touch-icon.png` },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {

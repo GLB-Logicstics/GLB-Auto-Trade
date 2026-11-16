@@ -12,6 +12,24 @@
 
     <p class="lot-filters__section">Hərrac filtrləri</p>
 
+    <FilterGroup title="Auksion" :count="filters.auctions.length" opened>
+      <CheckboxList
+        :options="auctions"
+        :selected="filters.auctions"
+        :searchable="false"
+        @apply="setList('auctions', $event)"
+      />
+    </FilterGroup>
+
+    <FilterGroup title="Auksion növü" :count="filters.auctionTypes.length">
+      <CheckboxList
+        :options="auctionTypes"
+        :selected="filters.auctionTypes"
+        :searchable="false"
+        @apply="setList('auctionTypes', $event)"
+      />
+    </FilterGroup>
+
     <FilterGroup title="Yeni əlavə olunan" :count="filters.added.length">
       <CheckboxList :options="addedOptions" :selected="filters.added" @apply="setList('added', $event)" />
     </FilterGroup>
@@ -69,6 +87,15 @@
       />
     </FilterGroup>
 
+    <FilterGroup title="Qiymət (USD)" :count="filters.priceFrom || filters.priceTo ? 1 : 0">
+      <RangeFilter
+        :from="filters.priceFrom"
+        :to="filters.priceTo"
+        :hint="priceRange"
+        @apply="(from, to) => setRange('priceFrom', 'priceTo', from, to)"
+      />
+    </FilterGroup>
+
     <FilterGroup v-for="group in carGroups" :key="group.key" :title="group.title" :count="filters[group.key].length">
       <CheckboxList :options="optionsOf(group.key)" :selected="filters[group.key]" @apply="setList(group.key, $event)" />
     </FilterGroup>
@@ -78,7 +105,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'pinia'
-import { addedOptions } from '~/data/filters'
+import { addedOptions, auctions, auctionTypes } from '~/data/filters'
 import { useLotsStore, type ListKey } from '~/stores/lots'
 
 export default defineComponent({
@@ -99,11 +126,18 @@ export default defineComponent({
       { key: 'documents', title: 'Sənəd' },
     ]
 
-    return { addedOptions, carGroups }
+    return { addedOptions, auctions, auctionTypes, carGroups }
   },
 
   computed: {
-    ...mapState(useLotsStore, ['filters', 'optionsOf', 'activeCount', 'yearRange', 'mileageRange']),
+    ...mapState(useLotsStore, [
+      'filters',
+      'optionsOf',
+      'activeCount',
+      'yearRange',
+      'mileageRange',
+      'priceRange',
+    ]),
   },
 
   methods: {

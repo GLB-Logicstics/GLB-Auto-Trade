@@ -7,6 +7,22 @@
       </span>
     </div>
 
+    <div class="car-filters__place">
+      <BaseSelect
+        :model-value="filters.country"
+        :options="countryOptions"
+        placeholder="Bütün ölkələr"
+        @update:model-value="setCountry"
+      />
+      <BaseSelect
+        :model-value="filters.city"
+        :options="cityOptions"
+        :disabled="!filters.country"
+        placeholder="Şəhər"
+        @update:model-value="setCity"
+      />
+    </div>
+
     <div v-if="filters.country || activeCount" class="car-filters__active">
       <button v-if="filters.country" type="button" class="car-filters__chip" @click="setCountry('')">
         {{ countryLabel }}
@@ -85,17 +101,23 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapState(useCarsStore, ['filters', 'optionsOf', 'rangeOf', 'activeCount', 'countryLabel']),
+    ...mapState(useCarsStore, ['filters', 'optionsOf', 'rangeOf', 'activeCount', 'countryLabel', 'countryOptions', 'cityOptions']),
   },
 
   methods: {
-    ...mapActions(useCarsStore, ['setList', 'setRange', 'setCountry', 'resetFilters']),
+    ...mapActions(useCarsStore, ['setList', 'setRange', 'setCountry', 'setCity', 'resetFilters']),
   },
 })
 </script>
 
 <style lang="scss" scoped>
 .car-filters {
+  &__place {
+    display: grid;
+    gap: 10px;
+    margin: 14px 0 4px;
+  }
+
   &__head {
     padding-bottom: 14px;
     margin-bottom: 4px;

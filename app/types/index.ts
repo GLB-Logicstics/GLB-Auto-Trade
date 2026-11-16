@@ -32,6 +32,7 @@ export interface Notification {
   id: number
   title: string
   date: string
+  text: string[]
 }
 
 export interface ContactInfo {
@@ -74,6 +75,7 @@ export interface Option {
 
 export interface SaleStatus {
   label: string
+  reserve: string
   color: string
   icon: string
 }
@@ -94,6 +96,8 @@ export interface Lot {
   saleDate: string
   location: string
   auction: string
+  auctionType: string
+  video: string
   addedAt: string
   document: 'Standart sənəd' | 'Qeyri-standart sənəd' | 'Məlumat yoxdur'
   primaryDamage: string
@@ -132,6 +136,9 @@ export interface LocalCar {
   mileage: string
   odometer: number
   country: string
+  city: string
+  marketPrice: number
+  dealer: Dealer
   engine: string
   power: number
   transmission: string
@@ -141,14 +148,126 @@ export interface LocalCar {
   description: string[]
 }
 
+export interface Dealer {
+  name: string
+  phone: string
+  phoneDisplay: string
+}
+
+export interface KoreaCar {
+  id: number
+  slug: string
+  title: string
+  make: string
+  model: string
+  year: number
+  image: string
+  price: number
+  fuel: string
+  mileage: string
+  engine: string
+  engineCc: number
+  transmission: string
+  location: string
+}
+
 export interface CarSection {
   id: string
-  type: 'auction' | 'local'
+  type: 'auction' | 'local' | 'korea'
   title: string
   highlight: string
   subtitle: string
   moreLink: string
-  items: Lot[] | LocalCar[]
+  items: Lot[] | LocalCar[] | KoreaCar[]
+}
+
+export interface Part {
+  id: number
+  title: string
+  make: string
+  model: string
+  yearFrom: number
+  yearTo: number
+  type: string
+  condition: string
+  price: number
+  location: string
+}
+
+export interface PartType {
+  label: string
+  value: string
+  icon: string
+}
+
+export interface CatalogItem {
+  make: string
+  model: string
+  year: number
+  engineCc: number
+  fuel: string
+  location: string
+  auctionPrice: number
+  marketPrices: Record<string, number>
+}
+
+export interface Service {
+  slug: string
+  title: string
+  icon: string
+  short: string
+  description: string[]
+  steps: string[]
+}
+
+export interface InfoSection {
+  title: string
+  text: string[]
+}
+
+export interface InfoPage {
+  slug: string
+  title: string
+  subtitle: string
+  sections: InfoSection[]
+}
+
+export interface PricePoint {
+  label: string
+  price: number
+}
+
+export interface TrackingStep {
+  title: string
+  date: string
+  done: boolean
+}
+
+export interface RequestItem {
+  id: number
+  subject: string
+  name: string
+  phone: string
+  message: string
+  date: string
+}
+
+export interface User {
+  name: string
+  email: string
+  phone: string
+}
+
+export interface CostLine {
+  label: string
+  value: number
+  note?: string
+}
+
+export interface ExtraCost {
+  id: string
+  label: string
+  price: number
 }
 
 export interface Suggestion {
@@ -160,6 +279,8 @@ export interface Suggestion {
 export interface LotFilters {
   q: string
   added: string[]
+  auctions: string[]
+  auctionTypes: string[]
   locations: string[]
   makes: string[]
   models: string[]
@@ -180,15 +301,19 @@ export interface LotFilters {
   yearTo: string
   mileageFrom: string
   mileageTo: string
+  priceFrom: string
+  priceTo: string
   buyNow: boolean
   runs: boolean
   cleanTitle: boolean
   today: boolean
   tomorrow: boolean
+  upcoming: boolean
 }
 
 export interface CarFilters {
   country: string
+  city: string
   makes: string[]
   models: string[]
   engines: string[]

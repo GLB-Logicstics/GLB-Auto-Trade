@@ -1,6 +1,8 @@
-import type { Option } from '~/types'
+import type { ExtraCost, Option } from '~/types'
 
 export const AZN_RATE = 1.7
+
+export const GEL_TO_USD = 0.3862
 
 export const POTI_BAKU_PRICE = 540
 
@@ -9,27 +11,122 @@ export const countries: Option[] = [
   { label: 'Gürcüstan', value: 'ge' },
 ]
 
-export const shippingPrices: Record<string, number> = {
-  'AL - TANNER': 1525,
-  'CA - ANDERSON': 2600,
-  'FL - CLEWISTON': 1475,
-  'FL - OCALA': 1500,
-  'FL - OPA LOCKA': 1325,
-  'LA - SULPHUR': 1700,
-  'MA - WEST WARREN': 1575,
-  'MI - WOODHAVEN': 1775,
-  'NJ - WINDSOR': 1350,
-  'NY - BROOKHAVEN': 1450,
-  'OH - COLUMBIA STATION': 1650,
-  'OH - COLUMBUS': 1650,
-  'OR - EUGENE': 2100,
-  'TN - MEMPHIS': 1600,
-  'TX - TEMPLE': 1675,
-  'WA - ARLINGTON': 1950,
-}
+export const fuelOptions: Option[] = [
+  { label: 'Benzin', value: 'Benzin' },
+  { label: 'Dizel', value: 'Dizel' },
+  { label: 'Hibrid', value: 'Hibrid' },
+  { label: 'Elektrik', value: 'Elektrik' },
+]
 
-export const salvageFees: number[][] = [
-  [100, 205],
+export const documentOptions: Option[] = [
+  { label: 'Standart sənəd', value: 'clean' },
+  { label: 'Qeyri-standart sənəd', value: 'nonClean' },
+  { label: 'Məlumat yoxdur', value: 'unknown' },
+]
+
+export const extraCosts: ExtraCost[] = [
+  { id: 'insurance', label: 'Daşınma sığortası', price: 150 },
+  { id: 'documents', label: 'Sənədlərin hazırlanması', price: 100 },
+  { id: 'broker', label: 'Gömrük brokeri xidməti', price: 120 },
+]
+
+export const GATE_FEE = { clean: 79, nonClean: 95 }
+
+export const FEDEX_FEE = 20
+
+export const SERVICE_FEE = 15
+
+export const HIGH_BID_FROM = 15000
+
+export const copartCleanFees: number[][] = [
+  [0, 1],
+  [100, 25],
+  [200, 60],
+  [300, 80],
+  [350, 90],
+  [400, 125],
+  [450, 130],
+  [500, 140],
+  [550, 150],
+  [600, 165],
+  [700, 185],
+  [800, 200],
+  [900, 215],
+  [1000, 230],
+  [1200, 255],
+  [1300, 275],
+  [1400, 280],
+  [1500, 290],
+  [1600, 305],
+  [1700, 315],
+  [1800, 325],
+  [2000, 355],
+  [2400, 380],
+  [2500, 400],
+  [3000, 450],
+  [3500, 500],
+  [4000, 600],
+  [4500, 625],
+  [6000, 675],
+  [7500, 690],
+  [8000, 715],
+  [10000, 720],
+]
+
+export const copartNonCleanFees: number[][] = [
+  [0, 1],
+  [100, 25],
+  [200, 50],
+  [300, 75],
+  [400, 120],
+  [450, 130],
+  [500, 140],
+  [550, 150],
+  [600, 165],
+  [700, 185],
+  [800, 200],
+  [900, 215],
+  [1000, 230],
+  [1200, 255],
+  [1300, 275],
+  [1400, 280],
+  [1500, 290],
+  [1600, 305],
+  [1700, 315],
+  [1800, 325],
+  [2000, 355],
+  [2400, 380],
+  [2500, 400],
+  [3000, 450],
+  [3500, 500],
+  [4000, 600],
+  [4500, 625],
+  [5000, 650],
+  [6000, 675],
+  [7000, 700],
+  [8000, 725],
+  [10000, 750],
+  [11500, 760],
+  [12000, 775],
+  [12500, 790],
+]
+
+export const copartHighBidPercent = { clean: 0.0575, nonClean: 0.06 }
+
+export const liveBidFees: number[][] = [
+  [0, 0],
+  [100, 49],
+  [500, 59],
+  [1000, 79],
+  [1500, 89],
+  [2000, 99],
+  [4000, 109],
+  [6000, 139],
+  [8000, 149],
+]
+
+export const unknownDocFees: number[][] = [
+  [0, 205],
   [200, 240],
   [300, 265],
   [400, 305],
@@ -67,39 +164,6 @@ export const salvageFees: number[][] = [
   [12500, 1180],
 ]
 
-export const cleanTitleFees: number[][] = [
-  [100, 188],
-  [200, 213],
-  [300, 238],
-  [400, 273],
-  [500, 298],
-  [600, 313],
-  [700, 328],
-  [800, 343],
-  [900, 358],
-  [1000, 393],
-  [1200, 418],
-  [1300, 433],
-  [1400, 443],
-  [1500, 463],
-  [1600, 478],
-  [1700, 488],
-  [1800, 503],
-  [2000, 538],
-  [2400, 548],
-  [2500, 563],
-  [3000, 613],
-  [3500, 668],
-  [4000, 823],
-  [4500, 848],
-  [6000, 928],
-  [7500, 943],
-  [8000, 978],
-  [10000, 983],
-]
+export const unknownDocHighBid = { percent: 0.06, fixed: 290 }
 
-export const HIGH_BID_FROM = 15000
-
-export const salvageHighBid = { percent: 0.06, fixed: 290 }
-
-export const cleanTitleHighBid = { percent: 0.055, fixed: 263 }
+export const GE_FIXED_FEES = 480

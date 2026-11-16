@@ -3,7 +3,16 @@
     <HeroSlider />
     <SearchFilter />
     <BrandSlider />
-    <CarSection v-for="section in sections" :key="section.id" :section="section" />
+    <template v-for="section in topSections" :key="section.id">
+      <CarSection v-if="section.items.length" :section="section" />
+    </template>
+    <LocalCarsSection />
+    <template v-for="section in bottomSections" :key="section.id">
+      <CarSection v-if="section.items.length" :section="section" />
+    </template>
+    <HomeTools />
+    <HomeServices />
+    <HomeCta />
   </div>
 </template>
 
@@ -19,12 +28,12 @@ export default defineComponent({
     useSeoMeta({
       title: 'GLB Logistics — Amerikadan avtomobil sifarişi və daşınması',
       description:
-        'Copart və IAAI hərraclarından avtomobil sifarişi, ABŞ-dan Azərbaycana daşınma və gömrük xərclərinin hesablanması.',
+        'Copart, IAAI və Manheim hərraclarından avtomobil sifarişi, Azərbaycana və Gürcüstana daşınma, gömrük xərclərinin hesablanması.',
     })
   },
 
   computed: {
-    ...mapState(useHomeStore, ['sections']),
+    ...mapState(useHomeStore, ['topSections', 'bottomSections']),
   },
 })
 </script>

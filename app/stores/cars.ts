@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { countries } from '~/data/filters'
+import { cities, countries } from '~/data/filters'
 import { localCars } from '~/data/homepage'
 import type { CarFilters, LocalCar, Option } from '~/types'
 
@@ -17,6 +17,7 @@ export const CAR_LIST_KEYS = [
 
 export const CAR_TEXT_KEYS = [
   'country',
+  'city',
   'yearFrom',
   'yearTo',
   'mileageFrom',
@@ -31,6 +32,7 @@ export type CarTextKey = (typeof CAR_TEXT_KEYS)[number]
 function emptyFilters(): CarFilters {
   return {
     country: '',
+    city: '',
     makes: [],
     models: [],
     engines: [],
@@ -77,6 +79,12 @@ export const useCarsStore = defineStore('cars', {
 
     similarCars: (state) => (car: LocalCar) => state.items.filter((item) => item.id !== car.id),
 
+    countryOptions: () => countries,
+
+    cityOptions(state): Option[] {
+      return cities[state.filters.country] || []
+    },
+
     countryLabel(state): string {
       const country = countries.find((item) => item.value === state.filters.country)
       return country ? country.label : ''
@@ -87,6 +95,7 @@ export const useCarsStore = defineStore('cars', {
 
       return state.items.filter((car) => {
         if (f.country && car.country !== f.country) return false
+        if (f.city && car.city !== f.city) return false
 
         for (const key of CAR_LIST_KEYS) {
           if (f[key].length && !f[key].includes(carValue(car, key))) return false
@@ -213,6 +222,12 @@ export const useCarsStore = defineStore('cars', {
 
     setCountry(value: string) {
       this.filters.country = value
+      this.filters.city = ''
+      this.page = 1
+    },
+
+    setCity(value: string) {
+      this.filters.city = value
       this.page = 1
     },
 

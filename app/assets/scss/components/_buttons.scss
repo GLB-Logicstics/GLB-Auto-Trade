@@ -22,6 +22,35 @@
     }
   }
 
+  &--outline {
+    color: $ink;
+    background-color: $white;
+    border: 1px solid $line;
+
+    &:hover {
+      border-color: $accent;
+    }
+  }
+
+  &--whatsapp {
+    color: $white;
+    background-color: #25d366;
+
+    &:hover {
+      background-color: #1ebe5a;
+    }
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &--sm {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 0.875rem;
+  }
+
   &:disabled {
     color: $muted;
     background-color: $line;

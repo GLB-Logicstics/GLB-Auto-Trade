@@ -10,7 +10,7 @@
         <h3 class="lot-row__title">
           <NuxtLink :to="link">{{ lot.title }}</NuxtLink>
         </h3>
-        <span class="lot-row__lot">Lot #{{ lot.lotNumber }}</span>
+        <span class="lot-row__lot">Lot #{{ lot.lotNumber }} · {{ auctionTypeLabel }}</span>
         <span class="lot-row__status" :style="{ color: status.color }">
           <i :class="['bi', status.icon]"/>
           {{ status.label }}
@@ -84,7 +84,7 @@
 
 <script lang="ts">
 import {defineComponent, type PropType} from 'vue'
-import {saleStatuses} from '~/data/filters'
+import {auctionTypes, optionLabel, saleStatuses} from '~/data/filters'
 import {formatDate, formatMiles, formatUsd, onImageError} from '~/utils/format'
 import type {Lot, SaleStatus} from '~/types'
 
@@ -106,6 +106,10 @@ export default defineComponent({
 
     status(): SaleStatus {
       return saleStatuses[this.lot.status] || saleStatuses.minBid!
+    },
+
+    auctionTypeLabel(): string {
+      return optionLabel(auctionTypes, this.lot.auctionType)
     },
   },
 

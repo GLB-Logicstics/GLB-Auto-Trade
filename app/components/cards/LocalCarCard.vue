@@ -32,6 +32,8 @@
         {{ formatUsd(car.price) }}
         <s v-if="car.oldPrice" class="local-card__old-price">{{ formatUsd(car.oldPrice) }}</s>
       </p>
+      <p v-if="diff > 0" class="local-card__diff">+{{ formatUsd(diff) }} bazar qiymətindən ucuz</p>
+      <p class="local-card__city"><i class="bi bi-geo-alt" /> {{ car.location }}</p>
 
       <ul class="local-card__specs">
         <li>
@@ -75,6 +77,10 @@ export default defineComponent({
     link(): string {
       return `/cars/${this.car.slug}`
     },
+
+    diff(): number {
+      return this.car.marketPrice - this.car.price
+    },
   },
 
   methods: {
@@ -86,6 +92,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .local-card {
+  &__diff {
+    margin-top: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #1f9d55;
+  }
+
+  &__city {
+    margin-top: 4px;
+    font-size: 0.8125rem;
+    color: $text-soft;
+  }
+
   display: flex;
   flex-direction: column;
   height: 100%;
