@@ -1,4 +1,4 @@
-# GLB Logistics — Nuxt 4
+# GLB Auto Trade ( Only Front ) — Nuxt 4
 
 ```bash
 npm install
