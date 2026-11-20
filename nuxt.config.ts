@@ -1,5 +1,3 @@
-const baseURL = process.env.NUXT_APP_BASE_URL || '/'
-
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -35,8 +33,8 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#00b8fb' },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: `${baseURL}favicon.png` },
-        { rel: 'apple-touch-icon', href: `${baseURL}apple-touch-icon.png` },
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
